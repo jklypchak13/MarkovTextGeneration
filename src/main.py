@@ -1,6 +1,7 @@
-from lexer.tokenizer import Tokenizer
+from lexer.ngram_generator import NGramGenerator
 
-tokens = Tokenizer('data/sample.txt')
 
-while(not tokens.end()):
-    print(tokens.next_token())
+ngrams = NGramGenerator(2, 'data/sample.txt')
+
+while not ngrams.finished():
+    print(ngrams.get_next_ngram())
