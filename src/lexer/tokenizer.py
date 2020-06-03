@@ -1,13 +1,12 @@
 
 class Tokenizer:
-    """a tokenizer, breaking down a file by words/separators
+    """a tokenizer base class, breaking a file down in to it's base tokens
     """
-    separators = '.?\n\t ,![]()'
+
     token_map = {}
 
     def __init__(self, file_path: str):
         self.fp: File = open(file_path, 'r')
-        self.separators: str = Tokenizer.get_separators()
         self.current_char: str = self.fp.read(1)
         self.next_char: str = self.fp.read(1)
 
@@ -25,15 +24,17 @@ class Tokenizer:
         """
         token: str = self.current_char
 
-        while self.current_char != '' and (self.next_char in self.separators) == (self.current_char in self.separators):
+        while self.valid():
             token += self.next_char
             self._next()
+
         self._next()
+
         if '  ' in token:
             token.replace('  ', ' ')
-        if token not in Tokenizer.token_map:
-            Tokenizer.token_map[token] = len(Tokenizer.token_map)
-        return Tokenizer.token_map[token]
+        if token not in self.__class__.token_map:
+            self.__class__.token_map[token] = len(self.__class__.token_map)
+        return self.__class__.token_map[token]
 
     def end(self) -> bool:
         """determine if the tokenizer is at the end of the file
@@ -43,14 +44,8 @@ class Tokenizer:
         """
         return self.current_char == ''
 
-    @classmethod
-    def get_separators(cls) -> str:
-        """retrieve the list of the current separators
-
-        Returns:
-            str -- the single character separators
-        """
-        return cls.separators
+    def valid(self):
+        raise NotImplementedError
 
     @classmethod
     def get_id(cls, token):

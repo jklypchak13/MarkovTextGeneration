@@ -1,11 +1,11 @@
-from .tokenizer import Tokenizer
+from lexer import Tokenizer
 from typing import Tuple
 
 
 class NGramGenerator:
 
-    def __init__(self, n: int, file_path: str):
-        self.tokenizer = Tokenizer(file_path)
+    def __init__(self, n: int, tokenizer: Tokenizer):
+        self.tokenizer = tokenizer
         self.n: int = n
         self.current_ngram = tuple(
             [self.tokenizer.next_token() for i in range(n)])
