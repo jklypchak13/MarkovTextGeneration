@@ -3,6 +3,7 @@ class Tokenizer:
     """a tokenizer, breaking down a file by words/separators
     """
     separators = '.?\n\t ,![]()'
+    token_map = {}
 
     def __init__(self, file_path: str):
         self.fp: File = open(file_path, 'r')
@@ -24,13 +25,15 @@ class Tokenizer:
         """
         token: str = self.current_char
 
-        while(self.current_char != '' and (self.next_char in self.separators) == (self.current_char in self.separators)):
+        while self.current_char != '' and (self.next_char in self.separators) == (self.current_char in self.separators):
             token += self.next_char
             self._next()
         self._next()
         if '  ' in token:
             token.replace('  ', ' ')
-        return token
+        if token not in Tokenizer.token_map:
+            Tokenizer.token_map[token] = len(Tokenizer.token_map)
+        return Tokenizer.token_map[token]
 
     def end(self) -> bool:
         """determine if the tokenizer is at the end of the file
@@ -48,3 +51,14 @@ class Tokenizer:
             str -- the single character separators
         """
         return cls.separators
+
+    @classmethod
+    def get_id(cls, token):
+        return cls.token_map[token]
+
+    @classmethod
+    def get_token(cls, token_id):
+        for token in cls.token_map:
+            if cls.token_map[token] == token_id:
+                return token_id
+        return None
