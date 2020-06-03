@@ -60,5 +60,13 @@ class Tokenizer:
     def get_token(cls, token_id):
         for token in cls.token_map:
             if cls.token_map[token] == token_id:
-                return token_id
+                return token
         return None
+
+    @classmethod
+    def translate(cls, token_ids):
+        result = ''
+        for token in token_ids:
+            result += cls.get_token(token)
+
+        return result
