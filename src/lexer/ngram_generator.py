@@ -1,4 +1,4 @@
-from lexer import Tokenizer
+from lexer.tokenizer import Tokenizer
 from typing import Tuple
 
 
