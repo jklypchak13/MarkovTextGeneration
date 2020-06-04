@@ -23,3 +23,16 @@ After cloning the repo, simply run the setup file from the parent directory
 ```shell
 python setup.py
 ```
+
+### Generating Scripts
+
+As of right now, the main function is rather simple, providing only some basics. It will train a model with the office scripts, and generate its own.
+To do this,  execute the following command
+
+```shell
+python src/main.py
+```
+
+### Future Improvements
+
+As of right now error checking is rather simple, and will be improved. In addition, further improvements in the interface and accessibility of this tool will be improved.
