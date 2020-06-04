@@ -13,13 +13,14 @@ def select_random(freq_map):
 
 class MarkovModel:
 
-    def __init__(self, n):
+    def __init__(self, n, tokenizer):
         self.n = n
         self.data: Dict[Tuple[int], Dict[int, int]] = {}
         self.starting_values: Dict[Tuple[int], int] = {}
+        self.tokenizer = tokenizer
 
     def train(self, file_name):
-        ngrams = NGramGenerator(self.n, file_name)
+        ngrams = NGramGenerator(self.n, self.tokenizer(file_name))
 
         first_ngram = ngrams.first_ngram()
         count = 1
