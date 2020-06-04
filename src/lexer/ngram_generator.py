@@ -1,4 +1,4 @@
-from lexer import Tokenizer
+from lexer.tokenizer import Tokenizer
 from typing import Tuple
 
 
@@ -9,6 +9,7 @@ class NGramGenerator:
         self.n: int = n
         self.current_ngram = tuple(
             [self.tokenizer.next_token() for i in range(n)])
+        self.first = self.current_ngram
 
     def get_next_ngram(self):
         result = self.current_ngram
@@ -16,8 +17,11 @@ class NGramGenerator:
 
         self.current_ngram = list(self.current_ngram)[1:]
         self.current_ngram.append(token)
-        self.current_ngram = list(self.current_ngram)
+        self.current_ngram = tuple(self.current_ngram)
         return result, token
 
     def finished(self):
         return self.tokenizer.end()
+
+    def first_ngram(self):
+        return self.first

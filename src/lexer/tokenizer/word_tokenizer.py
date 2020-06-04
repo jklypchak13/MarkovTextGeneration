@@ -1,4 +1,4 @@
-from lexer.tokenizer import Tokenizer
+from lexer.tokenizer.base import Tokenizer
 
 
 class WordTokenizer(Tokenizer):
