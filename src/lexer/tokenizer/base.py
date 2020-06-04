@@ -36,7 +36,7 @@ class Tokenizer:
 
         # Replace Lengths of Spaces with just one space
         while '  ' in token:
-            token.replace('  ', ' ')
+            token = token.replace('  ', ' ')
 
         # See if a new token has been found
         if token not in self.__class__.token_map:
